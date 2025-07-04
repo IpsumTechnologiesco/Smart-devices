@@ -45,9 +45,26 @@ async function getToken() {
     'sign_method': 'HMAC-SHA256'
   };
 
-  const response = await axios.get(fullUrl, { headers });
-  return response.data.result.access_token;
+  try {
+    const response = await axios.get(fullUrl, { headers });
+
+    console.log('📦 Respuesta completa del token:');
+    console.dir(response.data, { depth: null });
+
+    const token = response.data?.result?.access_token;
+
+    if (!token) {
+      throw new Error('❌ No se pudo obtener access_token');
+    }
+
+    return token;
+
+  } catch (error) {
+    console.error('❌ Error al obtener token:', error.response?.data || error.message);
+    throw error;
+  }
 }
+
 
 // Obtener logs del dispositivo
 async function getDeviceLogs(token) {
