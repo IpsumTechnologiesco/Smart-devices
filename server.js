@@ -60,9 +60,14 @@ async function getToken() {
     return token;
 
   } catch (error) {
-    console.error('❌ Error al obtener token:', error.response?.data || error.message);
-    throw error;
-  }
+  const tuyaError = error.response?.data;
+
+  console.error('❌ Error al obtener token - respuesta de Tuya:');
+  console.dir(tuyaError, { depth: null });
+
+  throw new Error(tuyaError?.msg || 'Error desconocido al obtener token');
+}
+
 }
 
 
