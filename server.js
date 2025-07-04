@@ -60,12 +60,19 @@ async function getToken() {
     return token;
 
   } catch (error) {
-  const tuyaError = error.response?.data;
+  console.error('❌ Error completo al obtener token:');
 
-  console.error('❌ Error al obtener token - respuesta de Tuya:');
-  console.dir(tuyaError, { depth: null });
+  if (error.response) {
+    console.log('📄 Status:', error.response.status);
+    console.log('📄 Headers:', error.response.headers);
+    console.log('📄 Data:', error.response.data);
+  } else if (error.request) {
+    console.log('📡 No hubo respuesta. Request:', error.request);
+  } else {
+    console.log('❗ Error desconocido:', error.message);
+  }
 
-  throw new Error(tuyaError?.msg || 'Error desconocido al obtener token');
+  throw new Error('Error desconocido al obtener token');
 }
 
 }
