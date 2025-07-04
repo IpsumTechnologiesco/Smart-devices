@@ -14,8 +14,7 @@ app.use(express.json());
 const ACCESS_ID = 'gee4cmurretydq8p7m9cu';
 const ACCESS_SECRET = '01433d5f4d794a25858f00bb6d5df851';
 const DEVICE_ID = 'ebab8ba2f5c81024eacxaj';
-const BASE_URL = 'https://openapi.tuyaus.com';
-
+const BASE_URL = 'https://openapi.tuya.com';
 // Función mejorada para generar signature
 function generateSignature(method, url, timestamp, nonce, body = '') {
     const bodyHash = crypto.createHash('sha256').update(body || '').digest('hex');
